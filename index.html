@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PORTAL INFORMASI TERPADU DAN KOMUNIKASI BENCANA ACEH</title>
+    <!-- Memuat Tailwind CSS untuk desain yang memukau -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat FontAwesome untuk ikon-ikon yang universal dan mudah dipahami -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Memuat Font Google 'Outfit' untuk kesan modern dan mudah dibaca (inklusif) -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        aceh: {
+                            blue: '#0F3A7A', // Warna biru menyesuaikan identitas logo baru
+                            red: '#D91604', // Warna merah berani khas Aceh untuk status darurat
+                            yellow: '#F2A900', // Warna emas/kuning
+                            dark: '#1A1A1A',
+                            light: '#F8F9FA'
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.5s ease-out forwards'
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Gaya tambahan untuk menyembunyikan scrollbar agar terlihat seperti aplikasi asli */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        body {
+            background-color: #e5e7eb; /* Warna latar belakang luar prototipe */
+        }
+        .app-container {
+            /* Memaksa rasio layar sentuh (mobile) di tengah layar monitor */
+            max-width: 414px; 
+            margin: 0 auto;
+            background-color: #ffffff;
+            min-height: 100vh;
+            position: relative;
+            box-shadow: 0 0 40px rgba(0,0,0,0.1);
+            overflow-x: hidden;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased font-sans selection:bg-aceh-blue selection:text-white">
+
+    <!-- SPLASH SCREEN -->
+    <div id="splash-screen" class="app-container fixed inset-0 z-[100] flex flex-col items-center justify-center bg-white transition-opacity duration-700 ease-in-out">
+        <!-- Aksen Batik Latar Belakang Halus -->
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: repeating-linear-gradient(45deg, #0F3A7A 0, #0F3A7A 10px, transparent 0, transparent 20px);"></div>
+        <div class="animate-float flex flex-col items-center px-6 relative z-10">
+            <!-- Menampilkan Gambar Logo Baru dari Paduka -->
+            <img src="" alt="Logo Pintoe Aceh" class="w-full max-w-[320px] drop-shadow-md object-contain mb-2">
+            
+            <div class="mt-12 flex space-x-2">
+                <div class="w-2.5 h-2.5 rounded-full bg-aceh-blue animate-bounce"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-aceh-blue animate-bounce" style="animation-delay: 0.1s"></div>
+                <div class="w-2.5 h-2.5 rounded-full bg-aceh-yellow animate-bounce" style="animation-delay: 0.2s"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN APPLICATION CONTENT -->
+    <div id="main-content" class="app-container hidden opacity-0 flex flex-col pb-24">
+        
+        <!-- Header Aplikasi dengan Sentuhan Motif Batik / Ornamen Aceh -->
+        <header class="bg-aceh-blue text-white pt-10 pb-6 px-6 rounded-b-[2.5rem] shadow-xl relative z-10 overflow-hidden border-b-4 border-aceh-yellow">
+            <!-- Ornamen Motif Tradisional Aceh Abstrak di Background Header -->
+            <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#F2A900 1.5px, transparent 1.5px), radial-gradient(#F2A900 1.5px, #0F3A7A 1.5px); background-size: 24px 24px; background-position: 0 0, 12px 12px;"></div>
+            
+            <div class="flex justify-between items-center mb-6 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <!-- Logo Mini (Mengambil potongan ikon dari logo utama) -->
+                    <div class="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-md overflow-hidden p-1.5 border-2 border-aceh-yellow">
+                        <img src="{FE46A0BF-4595-4ECF-9254-EB0D55E1A35C}.png" alt="Logo Mini" class="w-full h-full object-cover object-left rounded-md">
+                    </div>
+                    <div>
+                        <h2 class="text-xs font-medium text-aceh-yellow tracking-wider uppercase">Pusat Terpadu</h2>
+                        <h1 class="text-xl font-black leading-tight text-white tracking-wide">Pintoe Aceh</h1>
+                    </div>
+                </div>
+                <button class="w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center hover:bg-white/30 transition-colors relative border border-white/30" aria-label="Notifikasi">
+                    <i class="fa-solid fa-bell text-aceh-yellow"></i>
+                    <span class="absolute top-2 right-2 w-2.5 h-2.5 bg-aceh-yellow rounded-full border-2 border-aceh-blue"></span>
+                </button>
+            </div>
+            
+            <!-- Peringatan Status Global -->
+            <div class="bg-white rounded-2xl p-4 shadow-lg flex items-center justify-between text-gray-800 relative z-10 border-l-4 border-l-green-500">
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 rounded-2xl bg-green-100 flex items-center justify-center text-green-600 animate-pulse-fast shadow-inner">
+                        <i class="fa-solid fa-shield-heart text-2xl"></i>
+                    </div>
+                    <div>
+                        <p class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Status Aceh Saat Ini</p>
+                        <p class="text-base font-extrabold text-green-600 flex items-center">
+                            <span class="w-2 h-2 rounded-full bg-green-500 mr-2 animate-ping"></span> Aman & Terkendali
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Bagian Grid Menu Utama -->
+        <main class="flex-1 px-6 mt-6 space-y-6">
+            
+            <div>
+                <div class="flex items-center justify-between mb-3">
+                    <h3 class="text-base font-black text-gray-800 flex items-center tracking-tight">
+                        <span class="w-2 h-5 bg-aceh-red rounded-full mr-2"></span> Layanan Tanggap Darurat
+                    </h3>
+                    <span class="text-[10px] font-bold text-aceh-blue bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">Khas Tanah Rencong</span>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    
+                    <!-- Menu 1: Edukasi Bencana -->
+                    <button class="group bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center hover:shadow-md hover:border-aceh-blue/30 transition-all active:scale-95 relative overflow-hidden" onclick="toggleEdukasi()">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-blue-50 rounded-bl-full -mr-6 -mt-6 group-hover:scale-125 transition-transform opacity-60"></div>
+                        <div class="w-14 h-14 rounded-2xl bg-blue-50 text-aceh-blue flex items-center justify-center mb-3 group-hover:-translate-y-1 transition-transform shadow-sm relative z-10 border border-blue-100">
+                            <i class="fa-solid fa-book-open-reader text-2xl"></i>
+                        </div>
+                        <span class="text-sm font-bold text-gray-800 relative z-10">Edukasi Bencana</span>
+                        <span class="text-[10px] text-gray-400 mt-0.5">Mitigasi & Video</span>
+                    </button>
+
+                    <!-- Menu 2: Potensi Bencana -->
+                    <button class="group bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center hover:shadow-md hover:border-orange-500/30 transition-all active:scale-95 relative overflow-hidden" onclick="togglePotensi()">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-orange-50 rounded-bl-full -mr-6 -mt-6 group-hover:scale-125 transition-transform opacity-60"></div>
+                        <div class="w-14 h-14 rounded-2xl bg-orange-50 text-orange-500 flex items-center justify-center mb-3 group-hover:-translate-y-1 transition-transform shadow-sm relative z-10 border border-orange-100">
+                            <i class="fa-solid fa-triangle-exclamation text-2xl"></i>
+                        </div>
+                        <span class="text-sm font-bold text-gray-800 relative z-10">Potensi Bencana</span>
+                        <span class="text-[10px] text-gray-400 mt-0.5">Zonasi Wilayah</span>
+                    </button>
+
+                    <!-- Menu 3: Persebaran Bencana (Peta) -->
+                    <button class="group bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center hover:shadow-md hover:border-emerald-500/30 transition-all active:scale-95 relative overflow-hidden" onclick="togglePersebaran()">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-emerald-50 rounded-bl-full -mr-6 -mt-6 group-hover:scale-125 transition-transform opacity-60"></div>
+                        <div class="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-3 group-hover:-translate-y-1 transition-transform shadow-sm relative z-10 border border-emerald-100">
+                            <i class="fa-solid fa-map-location-dot text-2xl"></i>
+                        </div>
+                        <span class="text-sm font-bold text-gray-800 relative z-10">Peta Persebaran</span>
+                        <span class="text-[10px] text-gray-400 mt-0.5">Sensor Real-Time</span>
+                    </button>
+
+                    <!-- Menu 4: Riwayat & Info Korban -->
+                    <button class="group bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex flex-col items-center justify-center text-center hover:shadow-md hover:border-purple-500/30 transition-all active:scale-95 relative overflow-hidden" onclick="toggleRiwayat()">
+                        <div class="absolute top-0 right-0 w-16 h-16 bg-purple-50 rounded-bl-full -mr-6 -mt-6 group-hover:scale-125 transition-transform opacity-60"></div>
+                        <div class="w-14 h-14 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center mb-3 group-hover:-translate-y-1 transition-transform shadow-sm relative z-10 border border-purple-100">
+                            <i class="fa-solid fa-file-waveform text-2xl"></i>
+                        </div>
+                        <span class="text-sm font-bold text-gray-800 relative z-10">Data & Riwayat</span>
+                        <span class="text-[10px] text-gray-400 mt-0.5">Arsip & Dampak</span>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Kabar Terkini / Cuaca dengan Ornamen Batik Tipis -->
+            <div>
+                <h3 class="text-base font-black text-gray-800 mb-3 flex items-center tracking-tight">
+                    <span class="w-2 h-5 bg-aceh-yellow rounded-full mr-2"></span> Pantauan Cuaca & BMKG
+                </h3>
+                <div class="bg-gradient-to-br from-blue-900 to-aceh-blue rounded-3xl p-5 text-white shadow-md relative overflow-hidden">
+                    <!-- Sentuhan Corak Batik Tradisional Halus -->
+                    <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: repeating-linear-gradient(135deg, #F2A900 0, #F2A900 8px, transparent 0, transparent 16px);"></div>
+                    <div class="flex items-start space-x-4 relative z-10">
+                        <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md text-aceh-yellow flex flex-shrink-0 items-center justify-center border border-white/30 text-xl">
+                            <i class="fa-solid fa-cloud-showers-heavy"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <span class="bg-aceh-yellow text-aceh-dark text-[9px] font-black px-2 py-0.5 rounded-full uppercase">Peringatan Dini</span>
+                                <span class="text-[10px] text-white/70"><i class="fa-regular fa-clock mr-1"></i> 10 mnt lalu</span>
+                            </div>
+                            <h4 class="font-bold text-white text-sm mt-1.5">Potensi Cuaca Ekstrem Pesisir Barat</h4>
+                            <p class="text-xs text-white/80 mt-1 leading-relaxed">Hujan sedang hingga lebat disertai angin kencang berpotensi terjadi di wilayah pesisir Aceh.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- HELPDESK FLOATING ACTION BUTTON (Tombol SOS) -->
+        <div class="fixed bottom-6 left-0 right-0 z-40 flex justify-center app-container" style="background: transparent; box-shadow: none; min-height: auto; pointer-events: none;">
+            <button onclick="toggleHelpdesk()" class="group relative flex flex-col items-center pointer-events-auto active:scale-95 transition-transform">
+                <!-- Gelombang Animasi Belakang -->
+                <div class="absolute inset-0 bg-aceh-red/30 rounded-full animate-ping group-hover:bg-aceh-red/40" style="width: 80px; height: 80px; left: 50%; transform: translateX(-50%);"></div>
+                <!-- Tombol Utama dengan Aksen Corak Lingkar -->
+                <div class="relative w-20 h-20 bg-aceh-red rounded-full flex flex-col items-center justify-center text-white shadow-[0_10px_25px_rgba(217,22,4,0.5)] border-4 border-white z-10">
+                    <div class="absolute inset-1 rounded-full border border-white/40 pointer-events-none"></div>
+                    <i class="fa-solid fa-truck-medical text-3xl mb-0.5"></i>
+                </div>
+                <span class="bg-white px-4 py-1.5 rounded-full text-xs font-black text-aceh-red shadow-md mt-[-10px] z-20 border border-red-100 uppercase tracking-wide">Helpdesk SOS</span>
+            </button>
+        </div>
+
+    </div>
+
+    <!-- MODAL HELPDESK (Terintegrasi BPBA, RS, LSM) -->
+    <div id="helpdesk-modal" class="fixed inset-0 z-[60] bg-black/60 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm flex items-end justify-center">
+        <div class="absolute inset-0" onclick="toggleHelpdesk()"></div>
+        <div id="helpdesk-content" class="bg-white w-full max-w-md rounded-t-[2.5rem] p-6 pb-12 translate-y-full transition-transform duration-300 relative z-10 shadow-2xl">
+            <!-- Ornamen Pembatas Batik -->
+            <div class="w-16 h-1.5 bg-gradient-to-r from-aceh-blue via-aceh-yellow to-aceh-red rounded-full mx-auto mb-6"></div>
+            
+            <div class="text-center mb-6">
+                <h2 class="text-2xl font-black text-aceh-red tracking-tight">Pusat Bantuan Darurat</h2>
+                <p class="text-xs text-gray-500 mt-1">Pilih instansi siaga darurat untuk respon cepat di Aceh.</p>
+            </div>
+
+            <div class="space-y-3">
+                <!-- Integrasi BPBA -->
+                <button class="w-full bg-red-50/80 hover:bg-red-100 border border-red-200 p-4 rounded-2xl flex items-center justify-between transition-colors group" onclick="simulateCall('BPBA')">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-red-500 text-white rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform shadow-sm">
+                            <i class="fa-solid fa-building-shield"></i>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-gray-800 text-base">Posko BPBA</h3>
+                            <p class="text-xs text-red-600 font-medium">Badan Penanggulangan Bencana</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-phone text-red-300 group-hover:text-red-500 text-xl"></i>
+                </button>
+
+                <!-- Integrasi Rumah Sakit (Sub-menu RSUD 23 Kab/Kota) -->
+                <button class="w-full bg-emerald-50/80 hover:bg-emerald-100 border border-emerald-200 p-4 rounded-2xl flex items-center justify-between transition-colors group" onclick="toggleRSUD()">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-emerald-500 text-white rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform shadow-sm">
+                            <i class="fa-solid fa-hospital-user"></i>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-gray-800 text-base">Rumah Sakit Daerah</h3>
+                            <p class="text-xs text-emerald-600 font-medium">Pilih RSUD 23 Kab/Kota se-Aceh</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-emerald-300 group-hover:text-emerald-500 text-xl"></i>
+                </button>
+
+                <!-- Integrasi LSM / Relawan -->
+                <button class="w-full bg-blue-50/80 hover:bg-blue-100 border border-blue-200 p-4 rounded-2xl flex items-center justify-between transition-colors group" onclick="simulateCall('LSM & Relawan')">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-blue-500 text-white rounded-2xl flex items-center justify-center text-xl group-hover:scale-110 transition-transform shadow-sm">
+                            <i class="fa-solid fa-handshake-angle"></i>
+                        </div>
+                        <div class="text-left">
+                            <h3 class="font-bold text-gray-800 text-base">LSM & Relawan</h3>
+                            <p class="text-xs text-blue-600 font-medium">Bantuan Logistik & SAR Gabungan</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-phone text-blue-300 group-hover:text-blue-500 text-xl"></i>
+                </button>
+            </div>
+            
+            <button onclick="toggleHelpdesk()" class="w-full mt-6 py-3 font-bold text-gray-400 hover:text-gray-800 text-xs uppercase tracking-wider">Tutup Menu</button>
+        </div>
+    </div>
+
+    <!-- MODAL RSUD KAB/KOTA -->
+    <div id="rsud-modal" class="fixed inset-0 z-[65] bg-black/60 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm flex items-end justify-center">
+        <div class="absolute inset-0" onclick="closeRSUD()"></div>
+        <div id="rsud-content" class="bg-gray-50 w-full max-w-md h-[90vh] rounded-t-[2.5rem] flex flex-col translate-y-full transition-transform duration-300 relative z-10 shadow-2xl overflow-hidden">
+            
+            <div class="bg-white px-6 py-5 rounded-t-[2.5rem] shadow-sm z-20 flex-shrink-0 border-b border-gray-100">
+                <div class="w-16 h-1.5 bg-gradient-to-r from-aceh-blue via-aceh-yellow to-aceh-red rounded-full mx-auto mb-4"></div>
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center">
+                        <button onclick="backToHelpdesk()" class="mr-3 w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-2xl flex items-center justify-center text-gray-600 transition-colors">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </button>
+                        <div>
+                            <h2 class="text-lg font-black text-emerald-600 tracking-tight">Direktori RSUD Aceh</h2>
+                            <p class="text-xs text-gray-500">Pilih rujukan faskes 23 Kab/Kota</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
+                    <input type="text" id="search-rsud" placeholder="Cari nama kabupaten/kota..." class="w-full bg-gray-100 border-none rounded-2xl py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" onkeyup="filterRSUD()">
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-4 space-y-3 pb-24" id="rsud-list"></div>
+        </div>
+    </div>
+
+    <!-- MODAL EDUKASI BENCANA -->
+    <div id="edukasi-modal" class="fixed inset-0 z-[60] bg-black/60 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm flex items-end justify-center">
+        <div class="absolute inset-0" onclick="toggleEdukasi()"></div>
+        <div id="edukasi-content" class="bg-gray-50 w-full max-w-md h-[85vh] rounded-t-[2.5rem] flex flex-col translate-y-full transition-transform duration-300 relative z-10 shadow-2xl overflow-hidden">
+            
+            <div class="bg-white px-6 py-5 rounded-t-[2.5rem] shadow-sm z-20 flex-shrink-0 border-b border-gray-100">
+                <div class="w-16 h-1.5 bg-gradient-to-r from-aceh-blue via-aceh-yellow to-aceh-red rounded-full mx-auto mb-4"></div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-black text-gray-800 tracking-tight">Modul Edukasi</h2>
+                        <p class="text-xs text-gray-500 mt-0.5">Panduan mitigasi bencana interaktif</p>
+                    </div>
+                    <button onclick="toggleEdukasi()" class="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-2xl flex items-center justify-center text-gray-600 transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto p-6 space-y-4 pb-24">
+                <!-- Modul 1: Tsunami -->
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group cursor-pointer" onclick="playAnimation('Mitigasi Tsunami')">
+                    <div class="h-32 bg-gradient-to-br from-teal-400 to-cyan-600 relative flex items-center justify-center overflow-hidden">
+                        <i class="fa-solid fa-water text-6xl text-white/20 absolute -bottom-2 -right-2 transform -rotate-12"></i>
+                        <div class="w-12 h-12 bg-white/30 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg border border-white/50">
+                            <i class="fa-solid fa-play text-white ml-1"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">03:45</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] font-bold text-teal-600 bg-teal-50 px-2 py-0.5 rounded-full uppercase tracking-wider">Animasi 3D</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-base mb-1 group-hover:text-teal-600 transition-colors">Langkah Cepat Hadapi Tsunami</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">Kenali tanda alam dan rute evakuasi darurat (20 meter, 20 menit) di wilayah pesisir Aceh.</p>
+                    </div>
+                </div>
+
+                <!-- Modul 2: Banjir -->
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group cursor-pointer" onclick="playAnimation('Mitigasi Banjir')">
+                    <div class="h-32 bg-gradient-to-br from-blue-400 to-indigo-600 relative flex items-center justify-center overflow-hidden">
+                        <i class="fa-solid fa-house-flood-water text-6xl text-white/20 absolute -bottom-2 -right-2"></i>
+                        <div class="w-12 h-12 bg-white/30 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg border border-white/50">
+                            <i class="fa-solid fa-play text-white ml-1"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">04:12</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full uppercase tracking-wider">Panduan Warga</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-base mb-1 group-hover:text-blue-600 transition-colors">Siaga Banjir Musim Hujan</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">Amankan dokumen penting dan tata cara evakuasi mandiri saat air sungai mulai naik.</p>
+                    </div>
+                </div>
+
+                <!-- Modul 3: Longsor -->
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden group cursor-pointer" onclick="playAnimation('Mitigasi Tanah Longsor')">
+                    <div class="h-32 bg-gradient-to-br from-orange-400 to-red-600 relative flex items-center justify-center overflow-hidden">
+                        <i class="fa-solid fa-mountain-sun text-6xl text-white/20 absolute -bottom-2 -left-2"></i>
+                        <div class="w-12 h-12 bg-white/30 backdrop-blur-md rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-lg border border-white/50">
+                            <i class="fa-solid fa-play text-white ml-1"></i>
+                        </div>
+                        <div class="absolute bottom-2 right-2 bg-black/60 text-white text-[10px] font-bold px-2.5 py-1 rounded-full">02:50</div>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] font-bold text-orange-600 bg-orange-50 px-2 py-0.5 rounded-full uppercase tracking-wider">Edukasi Lereng</span>
+                        </div>
+                        <h3 class="font-bold text-gray-800 text-base mb-1 group-hover:text-orange-600 transition-colors">Mendeteksi Ancaman Longsor</h3>
+                        <p class="text-xs text-gray-500 leading-relaxed line-clamp-2">Cara membaca retakan tanah di kawasan perbukitan rawan bagi warga.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL POTENSI BENCANA -->
+    <div id="potensi-modal" class="fixed inset-0 z-[60] bg-black/60 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm flex items-end justify-center">
+        <div class="absolute inset-0" onclick="togglePotensi()"></div>
+        <div id="potensi-content" class="bg-gray-50 w-full max-w-md h-[85vh] rounded-t-[2.5rem] flex flex-col translate-y-full transition-transform duration-300 relative z-10 shadow-2xl overflow-hidden">
+            <div class="bg-white px-6 py-5 rounded-t-[2.5rem] shadow-sm z-20 flex-shrink-0 border-b border-gray-100">
+                <div class="w-16 h-1.5 bg-gradient-to-r from-aceh-blue via-aceh-yellow to-aceh-red rounded-full mx-auto mb-4"></div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-black text-gray-800 tracking-tight">Potensi Bencana</h2>
+                        <p class="text-xs text-gray-500 mt-0.5">Zonasi rawan di wilayah Aceh</p>
+                    </div>
+                    <button onclick="togglePotensi()" class="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-2xl flex items-center justify-center text-gray-600 transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto p-6 space-y-4 pb-24">
+                <!-- Aceh Besar -->
+                <div class="bg-white p-4 rounded-3xl shadow-sm border border-l-4 border-l-orange-500 border-gray-100 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm">Kabupaten Aceh Besar</h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Kawasan Geurutee & Lhoong</p>
+                        <div class="flex items-center space-x-2 mt-2">
+                            <span class="bg-orange-100 text-orange-700 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase"><i class="fa-solid fa-hill-rockslide mr-1"></i> Longsor</span>
+                        </div>
+                    </div>
+                    <div class="text-center bg-orange-50 px-3 py-2 rounded-2xl">
+                        <span class="block text-[9px] text-orange-500 font-bold uppercase">Status</span>
+                        <span class="block text-base font-black text-orange-600">SIAGA</span>
+                    </div>
+                </div>
+                <!-- Banda Aceh -->
+                <div class="bg-white p-4 rounded-3xl shadow-sm border border-l-4 border-l-yellow-400 border-gray-100 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm">Kota Banda Aceh</h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Pesisir Syiah Kuala & Meuraxa</p>
+                        <div class="flex items-center space-x-2 mt-2">
+                            <span class="bg-yellow-100 text-yellow-700 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase"><i class="fa-solid fa-water mr-1"></i> Banjir Rob</span>
+                        </div>
+                    </div>
+                    <div class="text-center bg-yellow-50 px-3 py-2 rounded-2xl">
+                        <span class="block text-[9px] text-yellow-600 font-bold uppercase">Status</span>
+                        <span class="block text-base font-black text-yellow-600">WASPADA</span>
+                    </div>
+                </div>
+                <!-- Aceh Utara -->
+                <div class="bg-white p-4 rounded-3xl shadow-sm border border-l-4 border-l-red-500 border-gray-100 flex items-center justify-between">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-sm">Kabupaten Aceh Utara</h3>
+                        <p class="text-xs text-gray-500 mt-0.5">DAS Keureuto & Lhoksukon</p>
+                        <div class="flex items-center space-x-2 mt-2">
+                            <span class="bg-red-100 text-red-700 text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase"><i class="fa-solid fa-house-flood-water mr-1"></i> Banjir Bandang</span>
+                        </div>
+                    </div>
+                    <div class="text-center bg-red-50 px-3 py-2 rounded-2xl">
+                        <span class="block text-[9px] text-red-500 font-bold uppercase">Status</span>
+                        <span class="block text-base font-black text-red-600">AWAS</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL PETA PERSEBARAN -->
+    <div id="persebaran-modal" class="fixed inset-0 z-[60] bg-black/60 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm flex items-end justify-center">
+        <div class="absolute inset-0" onclick="togglePersebaran()"></div>
+        <div id="persebaran-content" class="bg-gray-50 w-full max-w-md h-[85vh] rounded-t-[2.5rem] flex flex-col translate-y-full transition-transform duration-300 relative z-10 shadow-2xl overflow-hidden">
+            <div class="bg-white px-6 py-5 rounded-t-[2.5rem] shadow-sm z-20 flex-shrink-0 border-b border-gray-100">
+                <div class="w-16 h-1.5 bg-gradient-to-r from-aceh-blue via-aceh-yellow to-aceh-red rounded-full mx-auto mb-4"></div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-black text-gray-800 tracking-tight">Peta Radar Aceh</h2>
+                        <p class="text-xs text-gray-500 mt-0.5">Pemantauan sensor titik rawan</p>
+                    </div>
+                    <button onclick="togglePersebaran()" class="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-2xl flex items-center justify-center text-gray-600 transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="flex-1 p-4 pb-24 flex flex-col">
+                <!-- Simulasi Peta Interaktif -->
+                <div class="flex-1 bg-[#0F3A7A] rounded-3xl relative overflow-hidden shadow-inner border border-blue-900 w-full">
+                    <div class="absolute inset-0 opacity-15" style="background-image: linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px); background-size: 24px 24px;"></div>
+                    
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-aceh-yellow/30 rounded-full"></div>
+                    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-aceh-yellow/50 rounded-full animate-ping" style="animation-duration: 3s;"></div>
+                    
+                    <!-- Titik Panas 1 -->
+                    <div class="absolute top-1/4 right-1/4 flex flex-col items-center">
+                        <div class="relative w-4 h-4">
+                            <div class="absolute inset-0 bg-red-500 rounded-full animate-ping opacity-75"></div>
+                            <div class="relative w-4 h-4 bg-red-600 rounded-full border-2 border-white"></div>
+                        </div>
+                        <span class="text-white text-[10px] font-bold mt-1 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm">Aceh Utara</span>
+                    </div>
+
+                    <!-- Titik Panas 2 -->
+                    <div class="absolute bottom-1/3 left-1/3 flex flex-col items-center">
+                        <div class="relative w-4 h-4">
+                            <div class="absolute inset-0 bg-yellow-400 rounded-full animate-ping opacity-75" style="animation-delay: 1s;"></div>
+                            <div class="relative w-4 h-4 bg-yellow-500 rounded-full border-2 border-white"></div>
+                        </div>
+                        <span class="text-white text-[10px] font-bold mt-1 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm">Aceh Barat</span>
+                    </div>
+
+                    <!-- Titik Panas 3 -->
+                    <div class="absolute top-1/3 left-1/2 flex flex-col items-center">
+                        <div class="relative w-4 h-4">
+                            <div class="absolute inset-0 bg-orange-500 rounded-full animate-ping opacity-75" style="animation-delay: 2s;"></div>
+                            <div class="relative w-4 h-4 bg-orange-600 rounded-full border-2 border-white"></div>
+                        </div>
+                        <span class="text-white text-[10px] font-bold mt-1 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm">Aceh Besar</span>
+                    </div>
+                    
+                    <div class="absolute top-4 left-4">
+                        <span class="bg-red-500 text-white text-[9px] px-2.5 py-1 rounded-full font-bold animate-pulse shadow-sm"><i class="fa-solid fa-satellite-dish mr-1"></i> LIVE SENSOR</span>
+                    </div>
+                </div>
+                
+                <div class="mt-4 bg-white p-4 rounded-3xl shadow-sm border border-gray-100">
+                    <h3 class="text-xs font-bold text-gray-400 mb-2 uppercase tracking-wider">Keterangan Zonasi</h3>
+                    <div class="grid grid-cols-3 gap-2 text-center text-[10px] font-bold">
+                        <div class="flex items-center justify-center space-x-1.5 bg-yellow-50 text-yellow-700 py-2 rounded-2xl"><div class="w-2 h-2 rounded-full bg-yellow-500"></div><span>Waspada</span></div>
+                        <div class="flex items-center justify-center space-x-1.5 bg-orange-50 text-orange-700 py-2 rounded-2xl"><div class="w-2 h-2 rounded-full bg-orange-500"></div><span>Siaga</span></div>
+                        <div class="flex items-center justify-center space-x-1.5 bg-red-50 text-red-700 py-2 rounded-2xl"><div class="w-2 h-2 rounded-full bg-red-600"></div><span>Awas</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL DATA & RIWAYAT -->
+    <div id="riwayat-modal" class="fixed inset-0 z-[60] bg-black/60 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm flex items-end justify-center">
+        <div class="absolute inset-0" onclick="toggleRiwayat()"></div>
+        <div id="riwayat-content" class="bg-gray-50 w-full max-w-md h-[85vh] rounded-t-[2.5rem] flex flex-col translate-y-full transition-transform duration-300 relative z-10 shadow-2xl overflow-hidden">
+            <div class="bg-white px-6 py-5 rounded-t-[2.5rem] shadow-sm z-20 flex-shrink-0 border-b border-gray-100">
+                <div class="w-16 h-1.5 bg-gradient-to-r from-aceh-blue via-aceh-yellow to-aceh-red rounded-full mx-auto mb-4"></div>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h2 class="text-xl font-black text-gray-800 tracking-tight">Pusat Data Riwayat</h2>
+                        <p class="text-xs text-gray-500 mt-0.5">Arsip insiden dan rekapitulasi dampak</p>
+                    </div>
+                    <button onclick="toggleRiwayat()" class="w-9 h-9 bg-gray-100 hover:bg-gray-200 rounded-2xl flex items-center justify-center text-gray-600 transition-colors">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 pb-24 relative">
+                <div class="absolute left-10 top-10 bottom-24 w-0.5 bg-gray-200 z-0"></div>
+
+                <!-- Insiden 1 -->
+                <div class="relative z-10 flex">
+                    <div class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center flex-shrink-0 border-4 border-gray-50 shadow-sm mt-1">
+                        <i class="fa-solid fa-cloud-showers-heavy text-xs"></i>
+                    </div>
+                    <div class="ml-4 bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-gray-800 text-sm leading-tight">Banjir Bandang Aceh Utara</h3>
+                            <span class="text-[10px] bg-gray-100 text-gray-500 px-2.5 py-0.5 rounded-full font-bold">Okt 2025</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i> Kec. Lhoksukon & Matangkuli</p>
+                        <div class="grid grid-cols-2 gap-2 mt-2">
+                            <div class="bg-red-50 p-2.5 rounded-2xl">
+                                <span class="block text-[9px] text-red-500 font-bold uppercase">Korban Jiwa</span>
+                                <span class="block text-base font-black text-red-700">3 <span class="text-xs font-normal">Jiwa</span></span>
+                            </div>
+                            <div class="bg-orange-50 p-2.5 rounded-2xl">
+                                <span class="block text-[9px] text-orange-500 font-bold uppercase">Luka-luka</span>
+                                <span class="block text-base font-black text-orange-700">45 <span class="text-xs font-normal">Orang</span></span>
+                            </div>
+                            <div class="col-span-2 bg-gray-50 p-2.5 rounded-2xl border border-gray-100">
+                                <span class="block text-[9px] text-gray-400 font-bold uppercase">Kerugian Material</span>
+                                <span class="block text-xs font-black text-gray-800">± Rp 12,5 Miliar</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insiden 2 -->
+                <div class="relative z-10 flex">
+                    <div class="w-8 h-8 rounded-full bg-yellow-500 text-white flex items-center justify-center flex-shrink-0 border-4 border-gray-50 shadow-sm mt-1">
+                        <i class="fa-solid fa-house-crack text-xs"></i>
+                    </div>
+                    <div class="ml-4 bg-white p-4 rounded-3xl shadow-sm border border-gray-100 flex-1">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-bold text-gray-800 text-sm leading-tight">Gempa Bumi Pidie Jaya</h3>
+                            <span class="text-[10px] bg-gray-100 text-gray-500 px-2.5 py-0.5 rounded-full font-bold">Des 2016</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mb-3"><i class="fa-solid fa-location-dot mr-1"></i> Kab. Pidie Jaya (M 6.5)</p>
+                        <div class="grid grid-cols-2 gap-2 mt-2">
+                            <div class="bg-red-50 p-2.5 rounded-2xl">
+                                <span class="block text-[9px] text-red-500 font-bold uppercase">Korban Jiwa</span>
+                                <span class="block text-base font-black text-red-700">104 <span class="text-xs font-normal">Jiwa</span></span>
+                            </div>
+                            <div class="bg-orange-50 p-2.5 rounded-2xl">
+                                <span class="block text-[9px] text-orange-500 font-bold uppercase">Luka-luka</span>
+                                <span class="block text-base font-black text-orange-700">857 <span class="text-xs font-normal">Orang</span></span>
+                            </div>
+                            <div class="col-span-2 bg-gray-50 p-2.5 rounded-2xl border border-gray-100">
+                                <span class="block text-[9px] text-gray-400 font-bold uppercase">Bangunan Rusak</span>
+                                <span class="block text-xs font-black text-gray-800">11.668 Unit</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL INFORMASI UMUM -->
+    <div id="info-modal" class="fixed inset-0 z-[70] bg-black/50 hidden opacity-0 transition-opacity duration-300 backdrop-blur-sm flex items-center justify-center p-4">
+        <div id="info-content" class="bg-white w-full max-w-sm rounded-[2.5rem] p-6 text-center scale-95 transition-transform duration-300 shadow-2xl relative">
+            <div id="info-icon" class="w-20 h-20 mx-auto bg-gray-100 rounded-3xl flex items-center justify-center text-3xl mb-4 text-gray-500 shadow-inner">
+                <i class="fa-solid fa-info-circle"></i>
+            </div>
+            <h3 id="info-title" class="text-xl font-black text-gray-800 mb-2">Informasi</h3>
+            <p id="info-message" class="text-gray-600 text-xs mb-6 leading-relaxed">Pesan ini sedang ditampilkan.</p>
+            <button onclick="closeInfoModal()" class="w-full bg-aceh-blue text-white font-bold py-3.5 px-6 rounded-2xl hover:bg-blue-900 active:scale-95 transition-all shadow-md text-sm">Tutup</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const splash = document.getElementById('splash-screen');
+            const mainContent = document.getElementById('main-content');
+            
+            setTimeout(() => {
+                splash.classList.remove('opacity-100');
+                splash.classList.add('opacity-0');
+                
+                setTimeout(() => {
+                    splash.classList.add('hidden');
+                    mainContent.classList.remove('hidden');
+                    requestAnimationFrame(() => {
+                        mainContent.classList.remove('opacity-0');
+                        mainContent.classList.add('animate-fade-in');
+                    });
+                }, 700);
+            }, 2500);
+
+            renderRSUD();
+        });
+
+        const rsudData = [
+            { kota: "Kab. Aceh Barat", rs: "RSUD Cut Nyak Dhien" },
+            { kota: "Kab. Aceh Barat Daya", rs: "RSUD Teungku Peukan" },
+            { kota: "Kab. Aceh Besar", rs: "RSUD Kab. Aceh Besar" },
+            { kota: "Kab. Aceh Jaya", rs: "RSUD Teuku Umar" },
+            { kota: "Kab. Aceh Selatan", rs: "RSUD dr. H. Yuliddin Away" },
+            { kota: "Kab. Aceh Singkil", rs: "RSUD Aceh Singkil" },
+            { kota: "Kab. Aceh Tamiang", rs: "RSUD Aceh Tamiang" },
+            { kota: "Kab. Aceh Tengah", rs: "RSUD Datu Beru" },
+            { kota: "Kab. Aceh Tenggara", rs: "RSUD H. Sahudin" },
+            { kota: "Kab. Aceh Timur", rs: "RSUD dr. Zubir Mahmud" },
+            { kota: "Kab. Aceh Utara", rs: "RSUD Cut Meutia" },
+            { kota: "Kab. Bener Meriah", rs: "RSUD Munyang Kute" },
+            { kota: "Kab. Bireuen", rs: "RSUD dr. Fauziah" },
+            { kota: "Kab. Gayo Lues", rs: "RSUD Muhammad Ali Kasim" },
+            { kota: "Kab. Nagan Raya", rs: "RSUD Sultan Iskandar Muda" },
+            { kota: "Kab. Pidie", rs: "RSUD Tgk Chik Ditiro" },
+            { kota: "Kab. Pidie Jaya", rs: "RSUD Pidie Jaya" },
+            { kota: "Kab. Simeulue", rs: "RSUD Simeulue" },
+            { kota: "Kota Banda Aceh", rs: "RSUD dr. Zainoel Abidin / Meuraxa" },
+            { kota: "Kota Langsa", rs: "RSUD Langsa" },
+            { kota: "Kota Lhokseumawe", rs: "RSUD Kota Lhokseumawe" },
+            { kota: "Kota Sabang", rs: "RSUD Kota Sabang" },
+            { kota: "Kota Subulussalam", rs: "RSUD Kota Subulussalam" }
+        ];
+
+        function renderRSUD() {
+            const list = document.getElementById('rsud-list');
+            if(!list) return;
+            list.innerHTML = '';
+            rsudData.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'rsud-item w-full bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center justify-between transition-colors hover:bg-emerald-50 active:scale-95 text-left group';
+                btn.onclick = () => {
+                    closeRSUD();
+                    setTimeout(() => simulateCall(item.rs + '\\n(' + item.kota + ')'), 300);
+                };
+                btn.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-house-medical"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-sm rsud-name">${item.rs}</h3>
+                            <p class="text-xs text-emerald-600 rsud-kota">${item.kota}</p>
+                        </div>
+                    </div>
+                    <div class="w-8 h-8 bg-emerald-500 text-white rounded-full flex items-center justify-center shadow-md">
+                        <i class="fa-solid fa-phone text-xs"></i>
+                    </div>
+                `;
+                list.appendChild(btn);
+            });
+        }
+        
+        function filterRSUD() {
+            const query = document.getElementById('search-rsud').value.toLowerCase();
+            const items = document.querySelectorAll('.rsud-item');
+            items.forEach(item => {
+                const text = item.innerText.toLowerCase();
+                item.style.display = text.includes(query) ? 'flex' : 'none';
+            });
+        }
+
+        let rsudModalEl, rsudContentEl;
+        function toggleRSUD() {
+            if(!rsudModalEl) {
+                rsudModalEl = document.getElementById('rsud-modal');
+                rsudContentEl = document.getElementById('rsud-content');
+            }
+            toggleHelpdesk();
+            setTimeout(() => {
+                rsudModalEl.classList.remove('hidden');
+                void rsudModalEl.offsetWidth;
+                rsudModalEl.classList.remove('opacity-0');
+                rsudModalEl.classList.add('opacity-100');
+                rsudContentEl.classList.remove('translate-y-full');
+            }, 300);
+        }
+
+        function closeRSUD() {
+            if(!rsudContentEl) return;
+            rsudContentEl.classList.add('translate-y-full');
+            rsudModalEl.classList.remove('opacity-100');
+            rsudModalEl.classList.add('opacity-0');
+            setTimeout(() => {
+                rsudModalEl.classList.add('hidden');
+                document.getElementById('search-rsud').value = '';
+                filterRSUD();
+            }, 300);
+        }
+
+        function backToHelpdesk() {
+            closeRSUD();
+            setTimeout(() => { toggleHelpdesk(); }, 300);
+        }
+
+        const helpdeskModal = document.getElementById('helpdesk-modal');
+        const helpdeskContent = document.getElementById('helpdesk-content');
+        let isHelpdeskOpen = false;
+
+        function toggleHelpdesk() {
+            isHelpdeskOpen = !isHelpdeskOpen;
+            if (isHelpdeskOpen) {
+                helpdeskModal.classList.remove('hidden');
+                void helpdeskModal.offsetWidth;
+                helpdeskModal.classList.remove('opacity-0');
+                helpdeskModal.classList.add('opacity-100');
+                helpdeskContent.classList.remove('translate-y-full');
+            } else {
+                helpdeskContent.classList.add('translate-y-full');
+                helpdeskModal.classList.remove('opacity-100');
+                helpdeskModal.classList.add('opacity-0');
+                setTimeout(() => { helpdeskModal.classList.add('hidden'); }, 300);
+            }
+        }
+
+        const edukasiModal = document.getElementById('edukasi-modal');
+        const edukasiContent = document.getElementById('edukasi-content');
+        let isEdukasiOpen = false;
+
+        function toggleEdukasi() {
+            isEdukasiOpen = !isEdukasiOpen;
+            if (isEdukasiOpen) {
+                edukasiModal.classList.remove('hidden');
+                void edukasiModal.offsetWidth;
+                edukasiModal.classList.remove('opacity-0');
+                edukasiModal.classList.add('opacity-100');
+                edukasiContent.classList.remove('translate-y-full');
+            } else {
+                edukasiContent.classList.add('translate-y-full');
+                edukasiModal.classList.remove('opacity-100');
+                edukasiModal.classList.add('opacity-0');
+                setTimeout(() => { edukasiModal.classList.add('hidden'); }, 300);
+            }
+        }
+
+        const potensiModal = document.getElementById('potensi-modal');
+        const potensiContent = document.getElementById('potensi-content');
+        let isPotensiOpen = false;
+
+        function togglePotensi() {
+            isPotensiOpen = !isPotensiOpen;
+            if (isPotensiOpen) {
+                potensiModal.classList.remove('hidden');
+                void potensiModal.offsetWidth;
+                potensiModal.classList.remove('opacity-0');
+                potensiModal.classList.add('opacity-100');
+                potensiContent.classList.remove('translate-y-full');
+            } else {
+                potensiContent.classList.add('translate-y-full');
+                potensiModal.classList.remove('opacity-100');
+                potensiModal.classList.add('opacity-0');
+                setTimeout(() => { potensiModal.classList.add('hidden'); }, 300);
+            }
+        }
+
+        const persebaranModal = document.getElementById('persebaran-modal');
+        const persebaranContent = document.getElementById('persebaran-content');
+        let isPersebaranOpen = false;
+
+        function togglePersebaran() {
+            isPersebaranOpen = !isPersebaranOpen;
+            if (isPersebaranOpen) {
+                persebaranModal.classList.remove('hidden');
+                void persebaranModal.offsetWidth;
+                persebaranModal.classList.remove('opacity-0');
+                persebaranModal.classList.add('opacity-100');
+                persebaranContent.classList.remove('translate-y-full');
+            } else {
+                persebaranContent.classList.add('translate-y-full');
+                persebaranModal.classList.remove('opacity-100');
+                persebaranModal.classList.add('opacity-0');
+                setTimeout(() => { persebaranModal.classList.add('hidden'); }, 300);
+            }
+        }
+
+        const riwayatModal = document.getElementById('riwayat-modal');
+        const riwayatContent = document.getElementById('riwayat-content');
+        let isRiwayatOpen = false;
+
+        function toggleRiwayat() {
+            isRiwayatOpen = !isRiwayatOpen;
+            if (isRiwayatOpen) {
+                riwayatModal.classList.remove('hidden');
+                void riwayatModal.offsetWidth;
+                riwayatModal.classList.remove('opacity-0');
+                riwayatModal.classList.add('opacity-100');
+                riwayatContent.classList.remove('translate-y-full');
+            } else {
+                riwayatContent.classList.add('translate-y-full');
+                riwayatModal.classList.remove('opacity-100');
+                riwayatModal.classList.add('opacity-0');
+                setTimeout(() => { riwayatModal.classList.add('hidden'); }, 300);
+            }
+        }
+
+        function playAnimation(judulModul) {
+            toggleEdukasi();
+            setTimeout(() => {
+                showCustomAlert('Memuat Animasi...', `Prototipe sedang menyiapkan video animasi untuk modul: "${judulModul}".`, 'dev');
+            }, 350);
+        }
+
+        const infoModal = document.getElementById('info-modal');
+        const infoContent = document.getElementById('info-content');
+        
+        function showCustomAlert(title, message, type = 'info') {
+            document.getElementById('info-title').innerText = title;
+            document.getElementById('info-message').innerText = message;
+            
+            const iconDiv = document.getElementById('info-icon');
+            if (type === 'call') {
+                iconDiv.className = 'w-20 h-20 mx-auto bg-green-50 rounded-3xl flex items-center justify-center text-3xl mb-4 text-green-500 animate-pulse';
+                iconDiv.innerHTML = '<i class="fa-solid fa-phone-volume"></i>';
+            } else {
+                iconDiv.className = 'w-20 h-20 mx-auto bg-blue-50 rounded-3xl flex items-center justify-center text-3xl mb-4 text-aceh-blue';
+                iconDiv.innerHTML = '<i class="fa-solid fa-laptop-code"></i>';
+            }
+            
+            infoModal.classList.remove('hidden');
+            void infoModal.offsetWidth;
+            infoModal.classList.remove('opacity-0');
+            infoContent.classList.remove('scale-95');
+            infoContent.classList.add('scale-100');
+        }
+
+        function closeInfoModal() {
+            infoContent.classList.remove('scale-100');
+            infoContent.classList.add('scale-95');
+            infoModal.classList.add('opacity-0');
+            setTimeout(() => { infoModal.classList.add('hidden'); }, 300);
+        }
+
+        function simulateCall(instansi) {
+            toggleHelpdesk();
+            setTimeout(() => {
+                showCustomAlert('Menghubungkan...', `Sistem menyambungkan ke saluran darurat ${instansi}. (Simulasi Prototipe)`, 'call');
+            }, 350);
+        }
+    </script>
+</body>
+</html>
